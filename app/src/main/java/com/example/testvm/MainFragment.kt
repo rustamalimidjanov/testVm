@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.testvm.databinding.FragmentMainBinding
 
 class MainFragment: Fragment() {
     lateinit var binding: FragmentMainBinding
+    lateinit var dataName: Name
     private val viewModel: FragmentViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -19,6 +19,7 @@ class MainFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        dataName = Name()
         binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -27,14 +28,25 @@ class MainFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.button.setOnClickListener {
-            viewModel.saveNewName(text = binding.editText.text.toString())
+            val tvText = binding.editText.text.toString()
+            newName(name = tvText)
         }
 
         viewModel.mutableText.observe(viewLifecycleOwner) {
-            binding.textView.text = it.name
-
+//            binding.textView.text = it.name
+            it?.let {
+                this.dataName = it
+                updateUI()
+            }
         }
 
+    }
+    private fun newName(name: String) {
+        viewModel.saveNewName(text = name)
+    }
+
+    private fun updateUI() {
+        binding.textView.text = dataName.name
     }
 
 
