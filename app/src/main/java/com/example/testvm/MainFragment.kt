@@ -6,13 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.testvm.databinding.FragmentMainBinding
 
 class MainFragment: Fragment() {
     lateinit var binding: FragmentMainBinding
     lateinit var dataName: Name
     private val viewModel: FragmentViewModel by activityViewModels()
+//    private val viewModel: FragmentViewModel by lazy {
+//        ViewModelProvider(this)[FragmentViewModel::class.java]
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +52,7 @@ class MainFragment: Fragment() {
 
     private fun updateUI() {
         binding.textView.text = dataName.name
+        binding.editText.setText(dataName.name)
     }
 
 
