@@ -6,18 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.testvm.databinding.FragmentMainBinding
 
 class MainFragment: Fragment() {
+
     lateinit var binding: FragmentMainBinding
     lateinit var dataName: Name
-    private val viewModel: FragmentViewModel by activityViewModels()
-//    private val viewModel: FragmentViewModel by lazy {
-//        ViewModelProvider(this)[FragmentViewModel::class.java]
-//    }
+    lateinit var dataListName: List<NameList>
+
+    private val nameViewModel: FragmentNameViewModel by activityViewModels()
+    private val nameListViewModel: FragmentNameListViewModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +24,8 @@ class MainFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         dataName = Name()
+        dataListName = listOf(NameList())
+
         binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -37,17 +38,25 @@ class MainFragment: Fragment() {
             newName(name = tvText)
         }
 
-        viewModel.mutableText.observe(viewLifecycleOwner) {
-//            binding.textView.text = it.name
+        nameViewModel.mutableNameText.observe(viewLifecycleOwner) {
             it?.let {
                 this.dataName = it
                 updateUI()
             }
         }
 
+        binding.textListView.text = NameList("hello","by",15).toString()
+        nameListViewModel.mutableNameListText.observe(viewLifecycleOwner) {
+            it?.let {
+                this.dataListName = it
+
+
+            }
+        }
+
     }
     private fun newName(name: String) {
-        viewModel.saveNewName(text = name)
+        nameViewModel.saveNewName(text = name)
     }
 
     private fun updateUI() {

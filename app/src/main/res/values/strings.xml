@@ -2,4 +2,7 @@
     <string name="app_name">testVm</string>
     <string name="test">test</string>
     <string name="button">click</string>
+    <string name="buttonList">click list</string>
+    <string name="forTextList">forTextList...</string>
+    <string name="testList">test list</string>
 </resources>
