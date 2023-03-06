@@ -15,7 +15,6 @@ class MainFragment: Fragment() {
     lateinit var dataListName: List<NameList>
 
     private val nameViewModel: FragmentNameViewModel by activityViewModels()
-    private val nameListViewModel: FragmentNameListViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -42,15 +41,6 @@ class MainFragment: Fragment() {
             it?.let {
                 this.dataName = it
                 updateUI()
-            }
-        }
-
-        binding.textListView.text = NameList("hello","by",15).toString()
-        nameListViewModel.mutableNameListText.observe(viewLifecycleOwner) {
-            it?.let {
-                this.dataListName = it
-
-
             }
         }
 
