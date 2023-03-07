@@ -12,7 +12,6 @@ class MainFragment: Fragment() {
 
     lateinit var binding: FragmentMainBinding
     lateinit var dataName: Name
-    lateinit var dataListName: List<NameList>
 
     private val nameViewModel: FragmentNameViewModel by activityViewModels()
 
@@ -23,8 +22,6 @@ class MainFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         dataName = Name()
-        dataListName = listOf(NameList())
-
         binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
